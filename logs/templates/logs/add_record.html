@@ -1,0 +1,65 @@
+{% extends "logs/base.html" %}
+
+{% block title %}Add New Traffic Record{% endblock %}
+
+{% block content %}
+<section class="panel panel-form">
+    <p class="eyebrow">Page 2</p>
+    <h1>Add New Traffic Record</h1>
+
+    <form method="post" class="record-form">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="form-errors">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <div class="field-row">
+            <label for="{{ form.location.id_for_label }}">Location:</label>
+            <div>
+                {{ form.location }}
+                {{ form.location.errors }}
+            </div>
+        </div>
+
+        <div class="field-row">
+            <label for="{{ form.date.id_for_label }}">Date:</label>
+            <div>
+                {{ form.date }}
+                {{ form.date.errors }}
+            </div>
+        </div>
+
+        <div class="field-row">
+            <label for="{{ form.time.id_for_label }}">Time:</label>
+            <div>
+                {{ form.time }}
+                {{ form.time.errors }}
+            </div>
+        </div>
+
+        <div class="field-row">
+            <label for="{{ form.vehicle_count.id_for_label }}">Vehicle Count:</label>
+            <div>
+                {{ form.vehicle_count }}
+                {{ form.vehicle_count.errors }}
+            </div>
+        </div>
+
+        <div class="field-row">
+            <label for="{{ form.condition.id_for_label }}">Condition:</label>
+            <div>
+                {{ form.condition }}
+                {{ form.condition.errors }}
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button class="button button-success" type="submit">Save Record</button>
+            <a class="button button-secondary" href="{% url 'home' %}">&larr; Back</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

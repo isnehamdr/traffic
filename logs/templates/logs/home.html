@@ -1,0 +1,56 @@
+{% extends "logs/base.html" %}
+
+{% block title %}Traffic Log Manager{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <div class="panel-header">
+        <div>
+            <p class="eyebrow">Home Page</p>
+            <h1>Traffic Log Manager</h1>
+        </div>
+        <a class="button button-success" href="{% url 'add_record' %}">+ Add New Record</a>
+    </div>
+
+    {% if records %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Vehicle Count</th>
+                        <th>Condition</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                        <tr>
+                            <td>{{ record.id }}</td>
+                            <td>{{ record.location }}</td>
+                            <td>{{ record.date|date:"M d" }}</td>
+                            <td>{{ record.time|time:"H:i" }}</td>
+                            <td>{{ record.vehicle_count }}</td>
+                            <td>{{ record.condition }}</td>
+                            <td>
+                                <form method="post" action="{% url 'delete_record' record.id %}">
+                                    {% csrf_token %}
+                                    <button class="button button-danger" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h2>No records yet</h2>
+            <p>Add your first traffic log entry to start tracking activity.</p>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
